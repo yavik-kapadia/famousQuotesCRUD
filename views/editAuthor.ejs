@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Operations</title>
+</head>
+<body>
+
+<h1>Updating Author Data</h1>
+
+<form method="POST" action="/author/edit">
+
+    <input type="hidden" name="authorId" value="<%=authorInfo[0].authorId%>">
+
+    <label for="fname">First Name:</label>
+    <input type="text" name="fName" id="fname" value="<%=authorInfo[0].firstName%>">
+    <br>
+
+    <label for="lname">Last Name:</label>
+    <input type="text" name="lName" id="lname" value="<%=authorInfo[0].lastName%>">
+    <br>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" name="dob" id="dob"  value="<%=authorInfo[0].dobISO%>">
+    <br>
+
+    <label>Gender:</label>
+    <input type="radio" id="male" name="sex" value="M"
+
+    <% if (authorInfo[0].sex === "M") { %>
+           checked
+            <% } %>
+
+    > <label for="male">Male</label>
+
+    <input type="radio" name="sex" id="female" value="F"
+
+    <% if (authorInfo[0].sex === "F") { %>
+           checked
+            <% } %>
+
+    > <label for="female">Female</label>
+
+    <br>
+    <
+
+    <button>Update Author</button>
+
+
+</form>
+
+<br>
+<% if (typeof message != "undefined"){ %>
+<h3><%=message%></h3>
+<% } %>
+
+</body>
+</html>

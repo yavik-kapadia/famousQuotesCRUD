@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Operations</title>
+</head>
+<body>
+<h1>Adding a new Author</h1>
+
+<form method="POST" action="/author/new">
+    <label for="fname">First Name:</label>
+    <input type="text" name="fName" id="fname"><br>
+
+    <label for="lname">Last Name:</label>
+    <input type="text" name="lName" id="lname"><br>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" name="birthDate" id="dob"><br>
+
+    <label for="dod">Date of Death:</label>
+    <input type="date" name="deathDate" id="dod"><br>
+
+    <label for="sex">Gender:</label>
+    <div>
+        <input type="radio" name="sex" id="male" value="M">
+        <label for="male">Male</label>
+    </div>
+    <div>
+        <input type="radio" name="sex" id="female" value="F">
+        <label for="female">Female</label>
+    </div>
+    <br>
+    <label for="profession">Profession:</label>
+    <input type="text" name="profession" id="profession"><br>
+    <label for="country">Country</label>
+    <input type="text" name="country" id="country"><br>
+    <label for ="portrait">portrait:</label>
+    <input type="url" name="portrait" id="portrait" placeholder="enter a direct url to image">
+    <div>
+        <label for="biography">Biography:</label><br>
+        <textarea name="biography" id="biography" cols="30" rows="10"></textarea><br>
+    </div>
+
+
+    <br>
+    <button>Add Author</button>
+</form>
+<% if (typeof message != "undefined"){ %>
+<h3><%=message%></h3>
+<% } %>
+</body>
+</html>

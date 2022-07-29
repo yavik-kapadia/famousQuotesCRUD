@@ -24,6 +24,10 @@
     <input type="date" name="dob" id="dob"  value="<%=authorInfo[0].dobISO%>">
     <br>
 
+    <label for="dob">Date of Death:</label>
+    <input type="date" name="dod" id="dod"  value="<%=authorInfo[0].dodISO%>">
+    <br>
+
     <label>Gender:</label>
     <input type="radio" id="male" name="sex" value="M"
 
@@ -40,9 +44,22 @@
             <% } %>
 
     > <label for="female">Female</label>
-
     <br>
-    <
+    <label for="profession">Profession:</label>
+    <input type="text" name="profession" id="profession" value="<%=authorInfo[0].profession%>"><br>
+
+    <label for="country">Country</label>
+    <input type="text" name="country" id="country" value="<%=authorInfo[0].country%>"><br>
+
+    <label for ="portrait">portrait:</label>
+    <input type="url" name="portrait" id="portrait" value="<%=authorInfo[0].portrait%>" placeholder="enter a direct url
+    to
+    image">
+    <div>
+        <label for="biography">Biography:</label><br>
+        <textarea name="biography" id="biography" cols="30" rows="10"><%=authorInfo[0].biography%></textarea><br>
+    </div>
+    <br>
 
     <button>Update Author</button>
 

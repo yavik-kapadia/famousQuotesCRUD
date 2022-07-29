@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Operations</title>
+</head>
+<body>
+
+<h1>Updating Author Data</h1>
+
+<form method="POST" action="/quote/edit">
+
+    <input type="hidden" name="quoteId" value="<%=quoteInfo[0].quoteId%>">
+
+    <label for="authorId">Author:</label>
+    <select name="authorId" id="authorId">
+        <option value="<%=quoteInfo[0].authorId%>"><%=quoteInfo[0].authorName%></option>
+        <% for (var i = 0; i < authors.length; i++) { %>
+        <% if(authors[i].authorId === quoteInfo[0].authorId){%>
+            <option value="<%=authors[i].authorId%>" selected><%=authors[i].firstName%> <%=authors[i].lastName%></option>
+        <%}else{%>
+        <option value="<%=authors[i].authorId%>"><%=authors[i].firstName%> <%=authors[i].lastName%></option>
+
+            <% }} %>
+    </select>
+    <br>
+
+    <label for="quote">Quote Text:</label><br>
+    <textarea name="quote" id="quote" cols="30" rows="10"><%=quoteInfo[0].quote%></textarea>
+    <br>
+
+
+    <Label for="category">Category: </Label>
+    <select name="category" id="category">
+        <% for (var i = 0; i < categories.length; i++) { %>
+            <option value="<%=categories[i].category%>"><%=categories[i].category%></option>
+        <% } %>
+    </select> <br>
+    <label for="likes">Likes:</label>
+    <input type="number" name="likes" id="likes" value="<%=quoteInfo[0].likes%>">
+    <br>
+    <button>Update Author</button>
+
+
+</form>
+
+<br>
+<% if (typeof message != "undefined"){ %>
+<h3><%=message%></h3>
+<% } %>
+
+</body>
+</html>

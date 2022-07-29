@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Operations</title>
+</head>
+<body>
+
+<h1>Updating Author Data</h1>
+
+<form method="POST" action="/quotes/new">
+
+    <label for="authorId">Author:</label>
+    <select name="authorId" id="authorId">
+        <option value="<%=quoteInfo[0].authorId%>"><%=quoteInfo[0].authorName%></option>
+        <% for (var i = 0; i < authors.length; i++) { %>
+
+            <option value="<%=authors[i].authorId%>"><%=authors[i].firstName%> <%=authors[i].lastName%></option>
+
+        <% } %>
+    </select>
+    <br>
+
+    <label for="quote">Quote Text:</label><br>
+    <textarea name="quote" id="quote" cols="30" rows="10"></textarea>
+    <br>
+
+
+    <Label for="category">Category: </Label>
+    <select name="category" id="category">
+        <% for (var i = 0; i < categories.length; i++) { %>
+        <option value="<%=categories[i].category%>"><%=categories[i].category%></option>
+        <% } %>
+    </select> <br>
+    <label for="likes">Likes:</label>
+    <input type="number" name="likes" id="likes" value="0">
+    <br>
+    <button>Add Quote</button>
+
+
+</form>
+
+<br>
+<% if (typeof message != "undefined"){ %>
+<h3><%=message%></h3>
+<% } %>
+
+</body>
+</html>

@@ -10,9 +10,9 @@
 
 <% for (i=0; i < quotes.length; i++) { %>
 
-<a href="/quote/edit?quoteId=<%=quotes[i].quoteId%>">UPDATE</a>
+<a href="/quotes/edit?quoteId=<%=quotes[i].quoteId%>">UPDATE</a>
 
-<a href="/quote/delete?quoteId=<%=quotes[i].quoteId%>">DELETE</a>
+<a href="/quotes/delete?quoteId=<%=quotes[i].quoteId%>">DELETE</a>
 
 <%=quotes[i].quote%>
 <%=quotes[i].firstName%> <%=quotes[i].lastName%> <br>

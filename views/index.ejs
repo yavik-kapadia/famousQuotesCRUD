@@ -1,18 +1,26 @@
 <%- include("partials/header.ejs") %>
 <div class="page-container">
-    <div class="content text-center d-flex flex-row ">
-        <% if(typeof auth != "undefined" && auth === true ){ %>
-            <h1> Famous Quotes - Admin Section </h1>
-            <form action="/authors/new">
-                <button class="btn btn-primary">Add Authors</button>
-            </form><br>
+<div class="header text-center">
+    <% if(typeof auth != "undefined" && auth === true ){ %>
+        <h1> Famous Quotes - Admin Section </h1>
+    <% } else { %>
+        <h1> Famous Quotes</h1>
+    <% } %>
+</div>
 
-            <form action="/quotes/new">
-                <button class="btn btn-primary">Add Quotes</button>
-            </form><br>
-        <% } else { %>
-            <h1> Famous Quotes</h1>
-        <% } %>
+    <div class="content text-center d-flex flex-row ">
+
+            <% if(typeof auth != "undefined" && auth === true ){ %>
+
+                <form action="/authors/new">
+                    <button class="btn btn-primary">Add Authors</button>
+                </form><br>
+
+                <form action="/quotes/new">
+                    <button class="btn btn-primary">Add Quotes</button>
+                </form><br>
+
+            <% } %>
         <form action="/authors">
             <button class="btn btn-primary">List of Authors</button>
         </form>

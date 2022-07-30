@@ -1,23 +1,41 @@
 <%- include("partials/header.ejs") %>
 <div class="page-container">
-    <div class="content">
+    <div class="text-center p-1">
         <%if(typeof auth != "undefined" && auth === true ){%>
-        <h1> Update/Delete Authors </h1>
+            <h1> Update/Delete Authors </h1>
         <%}else{%>
-<h1 class="text-center"> Authors </h1>
+            <h1 class="text-center"> Authors </h1>
         <%}%>
+    </div>
+    <div class="content mx-auto">
 
+            <div class="row mx-auto">
         <% for (i = 0; i < authors.length; i++) { %>
-        <% if(typeof auth != "undefined" && auth === true ){ %>
-        <a href="/authors/edit?authorId=<%= authors[i].authorId %>"><i class="bi bi-pencil-square"></i></a>
 
-        <a href="/authors/delete?authorId=<%= authors[i].authorId %>"><i class="bi bi-trash text-danger"></i></a>
-        <% } %>
-        <a href="/authors/viewAuthor?authorId=<%= authors[i].authorId %>"><i class="bi bi-info-circle-fill"></i></a>
-        <%= authors[i].firstName %>
-        <%= authors[i].lastName %> <br>
+                <div class="col-sm-4  d-flex justify-content-center p-3">
+                    <div class="card" style="width:11rem;">
+                        <img src="<%= authors[i].portrait %>" class="card-img-top"
+                             alt="portrait of <% authors[i].lastName %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= authors[i].firstName %> <%= authors[i].lastName %></h5>
+                            <p class="card-text"><%= authors[i].profession %></p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-evenly">
+                            <% if(typeof auth != "undefined" && auth === true ){ %>
+                                <a href="/authors/edit?authorId=<%= authors[i].authorId %>"><i
+                                            class="bi bi-pencil-square"></i></a>
 
-        <% } %>
+                                <a href="/authors/delete?authorId=<%= authors[i].authorId %>"><i
+                                            class="bi bi-trash text-danger"></i></a>
+                            <% } %>
+                            <a href="/authors/viewAuthor?authorId=<%= authors[i].authorId %>"><i
+                                        class="bi bi-info-circle-fill"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <% } %>
+            </div>
     </div>
 </div>
 <%- include("partials/footer.ejs") %>

@@ -1,0 +1,9 @@
+body{
+    width: auto;
+    height: auto;
+}
+.page-container{
+    width:70%;
+    min-height:70vh;
+    margin: 0 auto;
+}

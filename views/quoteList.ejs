@@ -1,23 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>CRUD Operations</title>
-</head>
-<body>
+<%- include("partials/header.ejs") %>
+<div class="page-container">
+    <div class="header text-center">
+        <%if(typeof auth != "undefined" && auth === true ){%>
+            <h1> Update/Delete Quotes </h1>
+        <%}else{%>
+            <h1> Quotes </h1>
+        <%}%>
+    </div>
+    <div class="content">
 
-<h1> Update/Delete Quotes </h1>
+        <% for (i = 0; i < quotes.length; i++) { %>
 
-<% for (i=0; i < quotes.length; i++) { %>
+            <div class="card">
 
-<a href="/quotes/edit?quoteId=<%=quotes[i].quoteId%>">UPDATE</a>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <%= quotes[i].quote %>
+                        <p class="blockquote-footer pt-3"> <%= quotes[i].firstName %> <%= quotes[i].lastName %>
+                        </p>
+                    </blockquote>
+                    <div class="card-footer">
+                    <%if(auth){%>
+                        <a href="/quotes/edit?quoteId=<%= quotes[i].quoteId %>"><i class="bi bi-pencil-square"></i></a>
 
-<a href="/quotes/delete?quoteId=<%=quotes[i].quoteId%>">DELETE</a>
+                        <a href="/quotes/delete?quoteId=<%= quotes[i].quoteId %>"><i class="bi bi-trash text-danger"></i></a>
+                    <%}%>
+                    <span class="text-muted"><a href="/quotes/likes?quoteId=<%= quotes[i].quoteId %>"><span
+                                    class="text-danger"><i
+                                        class="bi
+                        bi-heart-fill"></i></span></a><%= quotes[i].likes %></span>
+                    </div>
+                </div>
+            </div>
 
-<%=quotes[i].quote%>
-<%=quotes[i].firstName%> <%=quotes[i].lastName%> <br>
 
-<% } %>
 
-</body>
-</html>
+        <br>
+
+        <% } %>
+
+    </div>
+</div>
+<%- include("partials/footer.ejs") %>

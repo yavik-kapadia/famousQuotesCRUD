@@ -1,56 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>CRUD Operations</title>
-</head>
-<body>
+<%- include("partials/header.ejs") %>
+<div class="page-container">
+    <div class="content">
+        <h1>Updating Quote Data</h1>
 
-<h1>Updating Quote Data</h1>
+        <form method="POST" action="/quotes/edit">
 
-<form method="POST" action="/quotes/edit">
+            <input type="hidden" name="quoteId" value="<%= quoteInfo[0].quoteId %>">
 
-    <input type="hidden" name="quoteId" value="<%=quoteInfo[0].quoteId%>">
+            <label for="authorId">Author:</label>
+            <select name="authorId" id="authorId">
+                <option value="<%= quoteInfo[0].authorId %>"><%= quoteInfo[0].authorName %></option>
+                <% for (var i = 0; i < authors.length; i++) { %>
+                    <% if(authors[i].authorId === quoteInfo[0].authorId){ %>
+                    <option value="<%= authors[i].authorId %>"
+                            selected><%= authors[i].firstName %> <%= authors[i].lastName %></option>
+                    <% }else{ %>
+                    <option value="<%= authors[i].authorId %>"><%= authors[i].firstName %> <%= authors[i].lastName %></option>
 
-    <label for="authorId">Author:</label>
-    <select name="authorId" id="authorId">
-        <option value="<%=quoteInfo[0].authorId%>"><%=quoteInfo[0].authorName%></option>
-        <% for (var i = 0; i < authors.length; i++) { %>
-        <% if(authors[i].authorId === quoteInfo[0].authorId){%>
-            <option value="<%=authors[i].authorId%>" selected><%=authors[i].firstName%> <%=authors[i].lastName%></option>
-        <%}else{%>
-        <option value="<%=authors[i].authorId%>"><%=authors[i].firstName%> <%=authors[i].lastName%></option>
+                <% }} %>
+            </select>
+            <br>
 
-            <% }} %>
-    </select>
-    <br>
-
-    <label for="quote">Quote Text:</label><br>
-    <textarea name="quote" id="quote" cols="30" rows="10"><%=quoteInfo[0].quote%></textarea>
-    <br>
+            <label for="quote">Quote Text:</label><br>
+            <textarea name="quote" id="quote" cols="30" rows="10"><%= quoteInfo[0].quote %></textarea>
+            <br>
 
 
-    <Label for="category">Category: </Label>
-    <select name="category" id="category">
-        <% for (var i = 0; i < categories.length; i++) { %>
-        <% if(categories[i].category === quoteInfo.category){%>
-            <option value="<%=categories[i].category%>" selected><%=categories[i].category%></option>
-            <%} else {%>
-            <option value="<%=categories[i].category%>"><%=categories[i].category%></option>
-        <% } }%>
-    </select> <br>
-    <label for="likes">Likes:</label>
-    <input type="number" name="likes" id="likes" value="<%=quoteInfo[0].likes%>">
-    <br>
-    <button>Update Author</button>
+            <Label for="category">Category: </Label>
+            <select name="category" id="category">
+                <% for (var i = 0; i < categories.length; i++) { %>
+                    <% if(categories[i].category === quoteInfo.category){ %>
+                    <option value="<%= categories[i].category %>" selected><%= categories[i].category %></option>
+                    <% } else { %>
+                    <option value="<%= categories[i].category %>"><%= categories[i].category %></option>
+                <% } } %>
+            </select> <br>
+            <label for="likes">Likes:</label>
+            <input type="number" name="likes" id="likes" value="<%= quoteInfo[0].likes %>">
+            <br>
+            <button>Update Author</button>
 
 
-</form>
+        </form>
 
-<br>
-<% if (typeof message != "undefined"){ %>
-<h3><%=message%></h3>
-<% } %>
+        <br>
+        <% if (typeof message != "undefined"){ %>
+        <h3><%= message %></h3>
+        <% } %>
 
-</body>
-</html>
+    </div>
+</div>
+<%- include("partials/footer.ejs") %>

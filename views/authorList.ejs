@@ -1,23 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>CRUD Operations</title>
-</head>
-<body>
+<%- include("partials/header.ejs") %>
+<div class="page-container">
+    <div class="content">
+        <%if(typeof auth != "undefined" && auth === true ){%>
+        <h1> Update/Delete Authors </h1>
+        <%}else{%>
+<h1 class="text-center"> Authors </h1>
+        <%}%>
 
-<h1> Update/Delete Authors </h1>
+        <% for (i = 0; i < authors.length; i++) { %>
+        <% if(typeof auth != "undefined" && auth === true ){ %>
+        <a href="/authors/edit?authorId=<%= authors[i].authorId %>"><i class="bi bi-pencil-square"></i></a>
 
-<% for (i=0; i < authors.length; i++) { %>
+        <a href="/authors/delete?authorId=<%= authors[i].authorId %>"><i class="bi bi-trash text-danger"></i></a>
+        <% } %>
+        <a href="/authors/viewAuthor?authorId=<%= authors[i].authorId %>"><i class="bi bi-info-circle-fill"></i></a>
+        <%= authors[i].firstName %>
+        <%= authors[i].lastName %> <br>
 
-<a href="/author/edit?authorId=<%=authors[i].authorId%>">UPDATE</a>
-
-<a href="/author/delete?authorId=<%=authors[i].authorId%>">DELETE</a>
-
-<%=authors[i].firstName%>
-<%=authors[i].lastName%> <br>
-
-<% } %>
-
-</body>
-</html>
+        <% } %>
+    </div>
+</div>
+<%- include("partials/footer.ejs") %>

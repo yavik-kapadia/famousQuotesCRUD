@@ -1,30 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>CRUD Operations</title>
-</head>
-<body>
+<%- include("partials/header.ejs") %>
+<div class="page-container">
+    <div class="content text-center d-flex flex-row ">
+        <% if(typeof auth != "undefined" && auth === true ){ %>
+            <h1> Famous Quotes - Admin Section </h1>
+            <form action="/authors/new">
+                <button class="btn btn-primary">Add Authors</button>
+            </form><br>
 
-<h1> Famous Quotes - Admin Section </h1>
+            <form action="/quotes/new">
+                <button class="btn btn-primary">Add Quotes</button>
+            </form><br>
+        <% } else { %>
+            <h1> Famous Quotes</h1>
+        <% } %>
+        <form action="/authors">
+            <button class="btn btn-primary">List of Authors</button>
+        </form>
+        <br>
 
-<form action="/authors/new">
-    <button>Add Authors</button>
-</form><br>
+        <form action="/quotes">
+            <button class="btn btn-primary">List of Quotes</button>
+        </form>
 
-<form action="/quotes/new">
-    <button>Add Quotes</button>
-</form><br>
-
-<form action="/authors">
-    <button>List Authors</button>
-</form><br>
-
-<form action="/quotes">
-    <button>List Quotes</button>
-</form>
-
-
-
-</body>
-</html>
+    </div>
+</div>
+<%- include("partials/footer.ejs") %>

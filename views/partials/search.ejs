@@ -1,0 +1,84 @@
+
+<div class="content-wrapper bg-light">
+    <h1 class="text-center"> <img  class="logo" src="img/quotely.png"/>uotely </h1>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="keyword-tab" data-bs-toggle="tab" data-bs-target="#keyword" type="button" role="tab" aria-controls="home" aria-selected="true">Keyword</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="author-tab" data-bs-toggle="tab" data-bs-target="#author" type="button" role="tab" aria-controls="author" aria-selected="false">Author</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="category-tab" data-bs-toggle="tab" data-bs-target="#category" type="button" role="tab" aria-controls="category" aria-selected="false">Category</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="likes-tab" data-bs-toggle="tab" data-bs-target="#likes" type="button" role="tab" aria-controls="likes" aria-selected="false">Likes</button>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="keyword" role="tabpanel" aria-labelledby="keyword-tab">
+            <div class="search-container input-group mb-3" >
+                <form  class="form-group d-flex flex-column" action="/searchByKeyword">
+
+                    <label for="keywordfield">Search by Keyword</label>
+                    <input type="text" name="keyword" id="keywordfield" class=" form-select-lg mb-3 form-control" placeholder="enter a keyword">
+                    <button class="btn btn-primary">Search</button>
+                </form>
+                <br>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="category-tab">
+            <div class="search-container">
+
+                <form  class="form-group d-flex flex-column" action="/searchByCategory">
+                    <label for="catergoryField">Search by Category</label>
+                    <select name="category" id="catergoryField" class="form-select form-select-lg mb-3 form-control">
+                        <option value="">Select a category</option>
+                        <% for (category of categories){ %>
+                        <option value="<%=category.category%>">
+                            <%=category.category%>
+                        </option>
+                        <% } %>
+                    </select>
+                    <button class="btn btn-primary">Search</button>
+
+                </form>
+                <br>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="author" role="tabpanel" aria-labelledby="author-tab">
+            <div class="search-container">
+
+                <form class="form-group d-flex flex-column" action="/searchByAuthor">
+                    <label for="authorField">Search by Author</label>
+                    <select name="authorId" id="authorField" class="form-select form-select-lg mb-3 form-control">
+                        <option value="">Select an author</option>
+                        <% for (author of authors){ %>
+                        <option value="<%=author.authorID%>">
+                            <%=author.firstName%> <%=author.lastName%>
+                        </option>
+                        <% } %>
+                    </select>
+                    <button class="btn btn-primary">Search</button>
+                </form>
+
+                <br>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="likes" role="tabpanel" aria-labelledby="likes-tab">
+            <div class="search-container">
+                <!--Enter a range -->
+                <form action="/searchByLikes" class="form-group d-flex flex-column">
+                    <label>Search by range of likes </label>
+                    <div class="input-group mb-3">
+                        <input type="number" id="minLikes" name="minLikes" class=" form-control" placeholder="Minimum Likes"/>
+                        <span class="input-group-text">-</span>
+                        <input type="number" id="maxLikes" name="maxLikes" class=" form-control" placeholder="Maximum Likes"/>
+                    </div>
+                    <button class="btn btn-primary">Search</button>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>

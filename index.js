@@ -3,7 +3,7 @@ const mysql = require("mysql");
 const app = express();
 const session = require("express-session");
 const bcrypt = require("bcrypt");
-const pool = require("../../Lectures/authentications/dbPool");
+const pool = require("./dbPool");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(
@@ -16,6 +16,7 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 
 //routes
+//homepage
 app.get("/", (req, res) => {
   res.render("index", { auth: req.session.authenicated });
 });
@@ -24,14 +25,19 @@ app.get("/login", (req, res) => {
   res.render("login", { auth: req.session.authenicated });
 });
 
+// get new authors page
 app.get("/authors/new", isAuthenticated, (req, res) => {
   res.render("newAuthor", { auth: req.session.authenicated });
 });
+// get new quotes page
 app.get("/quotes/new", isAuthenticated, async (req, res) => {
   let sql = "SELECT * FROM q_authors";
   let authors = await executeSQL(sql);
+
   sql = "SELECT DISTINCT category from q_quotes";
+
   let categories = await executeSQL(sql);
+  
   res.render("newQuote", {
     authors: authors,
     categories: categories,

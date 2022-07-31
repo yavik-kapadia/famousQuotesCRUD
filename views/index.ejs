@@ -8,28 +8,7 @@
     <% } %>
 </div>
 
-    <div class="content text-center d-flex flex-row ">
 
-            <% if(typeof auth != "undefined" && auth === true ){ %>
-
-                <form action="/authors/new">
-                    <button class="btn btn-primary">Add Authors</button>
-                </form><br>
-
-                <form action="/quotes/new">
-                    <button class="btn btn-primary">Add Quotes</button>
-                </form><br>
-
-            <% } %>
-        <form action="/authors">
-            <button class="btn btn-primary">List of Authors</button>
-        </form>
-        <br>
-
-        <form action="/quotes">
-            <button class="btn btn-primary">List of Quotes</button>
-        </form>
-
-    </div>
+    <%- include("partials/search.ejs")%>
 </div>
 <%- include("partials/footer.ejs") %>

@@ -1,0 +1,47 @@
+<%- include("partials/header")%>
+<div class="page-container">
+    <div class="content-wrapper bg-light">
+        <div class="results">
+            <% if (quotes.length > 0) { %>
+                <h3 class="text-center"> Quotes Found</h3>
+                <% for (i of quotes) { %>
+                    <%= i.quote %> <br>
+                    -<em>
+                        <a href="#" class="authorLinks" id="<%= i.authorId %>">
+                            <%= i.firstName %> <%= i.lastName %>
+                        </a>
+                    </em>
+                    <br><br>
+                <% } %>
+            <% } else { %>
+                <div class="no-results">
+                    <p class="h2 text-center">No quotes found</p>
+                    <form action="/">
+                        <button class="btn btn-primary">Back to searching</button>
+                    </form>
+                </div>
+            <% } %>
+            <div id="authorModal" class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Author Information</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="authorInfo">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/script.js"></script>
+<%- include("partials/footer")%>

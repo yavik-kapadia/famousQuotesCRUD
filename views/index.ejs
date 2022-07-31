@@ -7,30 +7,10 @@
         <h1> Famous Quotes</h1>
     <% } %>
 </div>
-<h3 class="text-center"> Welcome to the Quotes explorer</h3>
-<%-include("partials/search.ejs")%>
-    <div class="content text-center d-flex flex-column justify-content-center ">
 
-            <% if(typeof auth != "undefined" && auth === true ){ %>
 
-                <form action="/authors/new">
-                    <button class="btn btn-primary">Add Authors</button>
-                </form><br>
 
-                <form action="/quotes/new">
-                    <button class="btn btn-primary">Add Quotes</button>
-                </form><br>
-
-            <% } %>
-        <form action="/authors">
-            <button class="btn btn-primary">List of Authors</button>
-        </form>
-        <br>
-
-        <form action="/quotes">
-            <button class="btn btn-primary">List of Quotes</button>
-        </form>
-
-    </div>
+    <%-include("partials/search.ejs")%> 
 </div>
+
 <%- include("partials/footer.ejs") %>

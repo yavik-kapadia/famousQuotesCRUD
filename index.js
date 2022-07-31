@@ -17,9 +17,18 @@ app.use(express.urlencoded({ extended: true }));
 
 //routes
 //homepage
-app.get("/", (req, res) => {
-  res.render("index", { auth: req.session.authenicated });
+app.get("/", async (req, res) => {
+  let authors = await getAuthors();
+
+  let category = await getCategories();
+
+  res.render("index", {
+    authors: authors,
+    categories: category,
+    auth: req.session.authenicated,
+  });
 });
+
 //login page get
 app.get("/login", (req, res) => {
   res.render("login", { auth: req.session.authenicated });
@@ -37,7 +46,7 @@ app.get("/quotes/new", isAuthenticated, async (req, res) => {
   sql = "SELECT DISTINCT category from q_quotes";
 
   let categories = await executeSQL(sql);
-  
+
   res.render("newQuote", {
     authors: authors,
     categories: categories,
@@ -275,25 +284,110 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+app.get("/searchByKeyword", async (req, res) => {
+  let userKeyword = req.query.keyword;
+  console.log(userKeyword);
+  let sql = `SELECT quote, authorId, firstName, lastName
+             FROM q_quotes
+                      NATURAL JOIN q_authors
+             WHERE quote LIKE ?`;
+  let params = [`%${userKeyword}%`];
+
+  let rows = await executeSQL(sql, params);
+
+
+  res.render("results", { quotes: rows, auth: req.session.authenicated });
+});
+
+app.get("/searchByAuthor", async (req, res) => {
+  let userAuthorId = req.query.authorId;
+
+  let sql = `SELECT quote, authorId, firstName, lastName FROM q_quotes NATURAL JOIN q_authors WHERE authorId = ?`;
+  let params = [userAuthorId];
+  let rows = await executeSQL(sql, params);
+
+  let bg = await setBackground();
+
+  res.render("results", { quotes: rows, auth: req.session.authenicated });
+});
+
+//search by range of likes
+app.get("/searchByLikes", async (req, res) => {
+  let userMinLikes = req.query.minLikes;
+  let userMaxLikes = req.query.maxLikes;
+
+  let sql = `SELECT quote, authorId, firstName, lastName FROM q_quotes NATURAL JOIN q_authors WHERE likes between ?  and ?`;
+  let params = [parseInt(userMinLikes), parseInt(userMaxLikes)];
+  let rows = await executeSQL(sql, params);
+  let bg = await setBackground();
+
+  res.render("results", { quotes: rows, auth: req.session.authenicated });
+});
+
+app.get("/api/author/:id", async (req, res) => {
+  let authorId = req.params.id;
+  let sql = `SELECT *
+             FROM q_authors
+             WHERE authorId = ? `;
+  let rows = await executeSQL(sql, [authorId]);
+  res.send(rows);
+});
+
+app.get("/searchByCategory", async (req, res) => {
+  let userCategory = req.query.category;
+  let sql = `SELECT quote, authorId, firstName, lastName
+             FROM q_quotes
+                      NATURAL JOIN q_authors
+             WHERE category = ?`;
+  let params = [userCategory];
+
+  let rows = await executeSQL(sql, params);
+
+  let bg = await setBackground();
+
+  res.render("results", { quotes: rows, bg: bg });
+});
+
 app.post("/login", async function (req, res) {
   let username = req.body.username;
   let password = req.body.password;
   let hashedPassword = "";
   let sql = `SELECT * FROM users WHERE username = '${username}'`;
   let rows = await executeSQL(sql);
+  let authors = await getAuthors();
+  let categories = await getCategories();
   if (rows.length > 0) {
     hashedPassword = rows[0].password;
   }
+
   let passwordMatch = bcrypt.compareSync(password, hashedPassword);
   if (passwordMatch) {
     req.session.authenicated = true;
     req.session.username = username;
     req.session.role = rows[0].role;
-    res.render("index", { auth: req.session.authenicated });
+    res.render("index", {
+      authors: authors,
+      categories: categories,
+      auth: req.session.authenicated,
+    });
   } else {
     res.render("login", { message: true });
   }
 });
+async function getAuthors() {
+  let sql = `SELECT authorID, firstName, lastName
+               FROM q_authors
+               ORDER BY lastName`;
+  let authors = await executeSQL(sql);
+
+  return authors;
+}
+async function getCategories() {
+  sql = `SELECT DISTINCT category FROM q_quotes `;
+  let category = await executeSQL(sql);
+
+  return category;
+}
 function isAuthenticated(req, res, next) {
   if (!req.session.authenicated) {
     res.redirect("/");
@@ -310,6 +404,14 @@ async function executeSQL(sql, params) {
     });
   });
 } //executeSQL
+// set background image
+async function setBackground() {
+  let url = "https://api.unsplash.com/photos/random/?client_id=SRQjMtPIDrqVL-xWm51Gp1qpw9NFQ6YRv40_ISxn-ZE&orientation=landscape&featured=true&query=nature";
+  let response = await fetch(url);
+  let data = await response.json();
+  let image = data.urls.regular;
+  return image;
+}
 
 //start server
 app.listen(3000, () => {
